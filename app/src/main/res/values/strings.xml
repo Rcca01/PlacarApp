@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PlacarApp</string>
+    <string name="label_titulo">Times</string>
+    <string name="label_desenvolvido_por">Desenvolvido por Raul Cardoso</string>
+    <string name="btnJogar">Jogar</string>
+    <string name="edtTimeCasa">Time da casa</string>
+    <string name="edtTimeVisitante">Time visitante</string>
+</resources>
