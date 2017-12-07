@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btnGol">Gol</string>
+    <string name="btnJogar">Jogar</string>
+    <string name="edtTimeCasa">Time da casa</string>
+    <string name="edtTimeVisitante">Time visitante</string>
+    <string name="label_desenvolvido_por">Desenvolvido por Raul Cardoso</string>
+    <string name="label_titulo">Times</string>
+</resources>
