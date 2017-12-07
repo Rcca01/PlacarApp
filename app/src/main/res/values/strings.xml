@@ -5,4 +5,6 @@
     <string name="btnJogar">Jogar</string>
     <string name="edtTimeCasa">Time da casa</string>
     <string name="edtTimeVisitante">Time visitante</string>
+    <string name="placarInicial">0</string>
+    <string name="btnGol">Gol</string>
 </resources>
