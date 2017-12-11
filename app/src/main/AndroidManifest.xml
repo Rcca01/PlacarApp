@@ -7,15 +7,15 @@
         android:icon="@mipmap/ic_launcher_new"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/FullScreen">
-        <activity android:name=".SplashScreen">
+        android:theme="@style/AppTheme">
+        <activity android:theme="@style/FullScreen" android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:theme="@style/AppTheme" android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".GameActivity" />
     </application>
 

@@ -1,23 +1,28 @@
 package com.example.logonrm.placarapp;
 
-import android.support.annotation.StringDef;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class GameActivity extends AppCompatActivity {
 
     private String timeCasa;
     private String timeVisitante;
+    private int tempoJogo;
+    private boolean podePausar;
 
     private TextView tvTimeCasa;
     private TextView tvTimeVisitante;
 
     private TextView tvPlacarCasa;
     private TextView tvPlacarVisitante;
+
+    private Chronometer ch;
+    private long milliseonds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +35,14 @@ public class GameActivity extends AppCompatActivity {
         tvPlacarCasa = (TextView) findViewById(R.id.tvPlacarCasa);
         tvPlacarVisitante = (TextView) findViewById(R.id.tvPlacarVisitante);
 
+        ch = (Chronometer) findViewById(R.id.cronometro);
+        this.milliseonds = 0;
+
         if (getIntent() != null){
             timeCasa = getIntent().getStringExtra("TimeCasa");
             timeVisitante = getIntent().getStringExtra("TimeVisitante");
+            tempoJogo = Integer.parseInt(getIntent().getStringExtra("TempoJogo"));
+            podePausar = getIntent().getExtras().getBoolean("pauseJogo");
 
             tvTimeCasa.setText(timeCasa);
             tvTimeVisitante.setText(timeVisitante);
@@ -79,5 +89,15 @@ public class GameActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt("GOLCASA",this.getPlacarAtual(tvPlacarCasa));
         outState.putInt("GOLVISITANTE",this.getPlacarAtual(tvPlacarVisitante));
+    }
+
+    public void startCronometro(View v){
+        ch.setBase(SystemClock.elapsedRealtime() - milliseonds);
+        ch.start();
+    }
+
+    public void pauseCronometro(View v){
+        milliseonds = SystemClock.elapsedRealtime()- ch.getBase();
+        ch.stop();
     }
 }

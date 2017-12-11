@@ -52,6 +52,29 @@
             android:layout_height="wrap_content"
             android:hint="@string/edtTimeVisitante" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edtTempo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:inputType="number"
+                android:hint="Tempo de jogo"/>
+
+            <CheckBox
+                android:id="@+id/ckbPause"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Pausar jogo"
+                android:onClick="podePausar"/>
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/btnStart"
             android:layout_width="match_parent"
