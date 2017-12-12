@@ -1,95 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+<ScrollView android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.logonrm.placarapp.MainActivity">
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/label_titulo"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tvDesenvolvido"
-        android:layout_below="@+id/tvTitulo"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.example.logonrm.placarapp.MainActivity">
 
         <TextView
+            android:id="@+id/tvTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Time 1"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/time1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/edtTimeCasa" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Time 2"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/time2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/edtTimeVisitante" />
+            android:text="@string/label_titulo"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tvDesenvolvido"
+            android:layout_below="@+id/tvTitulo"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Time 1"
+                android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/edtTempo"
+                android:id="@+id/time1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:inputType="number"
-                android:hint="Tempo de jogo"/>
+                android:hint="@string/edtTimeCasa" />
 
-            <CheckBox
-                android:id="@+id/ckbPause"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Pausar jogo"
-                android:onClick="podePausar"/>
+                android:text="Time 2"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/time2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/edtTimeVisitante" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edtTempo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:inputType="number"
+                    android:hint="Tempo de jogo"/>
+
+                <CheckBox
+                    android:id="@+id/ckbPause"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Pausar jogo"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btnJogar"
+                android:onClick="comecarJogo"/>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnStart"
+        <TextView
+            android:id="@+id/tvDesenvolvido"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btnJogar"
-            android:onClick="comecarJogo"/>
-
+            android:layout_height="match_parent"
+            android:text="@string/label_desenvolvido_por"
+            android:textAlignment="center"
+            android:textSize="15sp" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvDesenvolvido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/label_desenvolvido_por"
-        android:textAlignment="center"
-        android:textSize="15sp" />
-</RelativeLayout>
+</ScrollView>

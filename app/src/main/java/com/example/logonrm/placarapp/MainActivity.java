@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText edtTempo;
     private boolean pauseJogo;
 
+    private CheckBox ckbPause;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,10 +26,16 @@ public class MainActivity extends AppCompatActivity {
         etTimeCasa = (EditText) findViewById(R.id.time1);
         etTimeVisitante = (EditText) findViewById(R.id.time2);
         edtTempo = (EditText) findViewById(R.id.edtTempo);
+        ckbPause = (CheckBox) findViewById(R.id.ckbPause);
     }
 
-    public void podePausar(View v){
-        pauseJogo = ((CheckBox) v).isChecked();
+    public void podePausar(final CheckBox checkBox){
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                pauseJogo = isChecked;
+            }
+        });
     }
 
     public void comecarJogo(View v){
@@ -41,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             gameActivity.putExtra("TimeCasa", etTimeCasa.getText().toString());
             gameActivity.putExtra("TimeVisitante", etTimeVisitante.getText().toString());
             gameActivity.putExtra("TempoJogo", edtTempo.getText().toString());
+            podePausar(ckbPause);
             gameActivity.putExtra("PodePausar", pauseJogo);
             startActivity(gameActivity);
         }

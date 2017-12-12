@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -20,6 +21,9 @@ public class GameActivity extends AppCompatActivity {
 
     private TextView tvPlacarCasa;
     private TextView tvPlacarVisitante;
+
+    private Button btnPause;
+    private Button btnStart;
 
     private Chronometer ch;
     private long milliseonds;
@@ -35,6 +39,9 @@ public class GameActivity extends AppCompatActivity {
         tvPlacarCasa = (TextView) findViewById(R.id.tvPlacarCasa);
         tvPlacarVisitante = (TextView) findViewById(R.id.tvPlacarVisitante);
 
+        btnPause = (Button) findViewById(R.id.btnPause);
+        btnStart = (Button) findViewById(R.id.btnStart);
+
         ch = (Chronometer) findViewById(R.id.cronometro);
         this.milliseonds = 0;
 
@@ -42,7 +49,7 @@ public class GameActivity extends AppCompatActivity {
             timeCasa = getIntent().getStringExtra("TimeCasa");
             timeVisitante = getIntent().getStringExtra("TimeVisitante");
             tempoJogo = Integer.parseInt(getIntent().getStringExtra("TempoJogo"));
-            podePausar = getIntent().getExtras().getBoolean("pauseJogo");
+            podePausar = getIntent().getExtras().getBoolean("PodePausar");
 
             tvTimeCasa.setText(timeCasa);
             tvTimeVisitante.setText(timeVisitante);
@@ -51,6 +58,11 @@ public class GameActivity extends AppCompatActivity {
         if(savedInstanceState != null){
             tvPlacarCasa.setText(String.valueOf(savedInstanceState.getInt("GOLCASA")));
             tvPlacarVisitante.setText(String.valueOf(savedInstanceState.getInt("GOLVISITANTE")));
+            milliseonds = savedInstanceState.getLong("TEMPO");
+        }
+
+        if (podePausar == false){
+            btnPause.setVisibility(View.GONE);
         }
     }
 
@@ -89,15 +101,18 @@ public class GameActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt("GOLCASA",this.getPlacarAtual(tvPlacarCasa));
         outState.putInt("GOLVISITANTE",this.getPlacarAtual(tvPlacarVisitante));
+        outState.putLong("TEMPO", this.milliseonds);
     }
 
     public void startCronometro(View v){
         ch.setBase(SystemClock.elapsedRealtime() - milliseonds);
         ch.start();
+        btnStart.setEnabled(false);
     }
 
     public void pauseCronometro(View v){
         milliseonds = SystemClock.elapsedRealtime()- ch.getBase();
         ch.stop();
+        btnStart.setEnabled(true);
     }
 }
