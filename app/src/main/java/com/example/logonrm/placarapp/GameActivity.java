@@ -22,11 +22,16 @@ public class GameActivity extends AppCompatActivity {
     private TextView tvPlacarCasa;
     private TextView tvPlacarVisitante;
 
+    private Button btnGolCasa;
+    private Button btnGolVisitante;
     private Button btnPause;
     private Button btnStart;
 
     private Chronometer ch;
-    private long milliseonds;
+    private long milliseconds;
+    private String textCronometro;
+
+    private boolean ativoCronometro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +44,16 @@ public class GameActivity extends AppCompatActivity {
         tvPlacarCasa = (TextView) findViewById(R.id.tvPlacarCasa);
         tvPlacarVisitante = (TextView) findViewById(R.id.tvPlacarVisitante);
 
+        btnGolCasa = (Button) findViewById(R.id.btnGolCasa);
+        btnGolVisitante = (Button) findViewById(R.id.btnGolVisitante);
+
         btnPause = (Button) findViewById(R.id.btnPause);
         btnStart = (Button) findViewById(R.id.btnStart);
 
         ch = (Chronometer) findViewById(R.id.cronometro);
-        this.milliseonds = 0;
+        this.milliseconds = 0;
+
+        this.ativoCronometro = false;
 
         if (getIntent() != null){
             timeCasa = getIntent().getStringExtra("TimeCasa");
@@ -58,7 +68,16 @@ public class GameActivity extends AppCompatActivity {
         if(savedInstanceState != null){
             tvPlacarCasa.setText(String.valueOf(savedInstanceState.getInt("GOLCASA")));
             tvPlacarVisitante.setText(String.valueOf(savedInstanceState.getInt("GOLVISITANTE")));
-            milliseonds = savedInstanceState.getLong("TEMPO");
+            this.ativoCronometro = savedInstanceState.getBoolean("ATIVOCRONOMETRO");
+            this.textCronometro = savedInstanceState.getString("TEXTCRONOMETRO");
+            this.milliseconds = savedInstanceState.getLong("TEMPO");
+            if (this.ativoCronometro){
+                ch.setBase(SystemClock.elapsedRealtime() - milliseconds);
+                ch.start();
+                btnStart.setEnabled(false);
+            }else{
+                ch.setText(this.textCronometro);
+            }
         }
 
         if (podePausar == false){
@@ -83,7 +102,7 @@ public class GameActivity extends AppCompatActivity {
     public void golCasa(View v){
         int valorPlacarCasa = this.getPlacarAtual(tvPlacarCasa);
         valorPlacarCasa++;
-        tvPlacarCasa.setText(String.valueOf(valorPlacarCasa));
+        this.tvPlacarCasa.setText(String.valueOf(valorPlacarCasa));
     }
 
     /**
@@ -93,7 +112,7 @@ public class GameActivity extends AppCompatActivity {
     public void golVisitante(View v){
         int valorPlacarVisitante = this.getPlacarAtual(tvPlacarVisitante);
         valorPlacarVisitante++;
-        tvPlacarVisitante.setText(String.valueOf(valorPlacarVisitante));
+        this.tvPlacarVisitante.setText(String.valueOf(valorPlacarVisitante));
     }
 
     @Override
@@ -101,18 +120,33 @@ public class GameActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt("GOLCASA",this.getPlacarAtual(tvPlacarCasa));
         outState.putInt("GOLVISITANTE",this.getPlacarAtual(tvPlacarVisitante));
-        outState.putLong("TEMPO", this.milliseonds);
+        if (this.ativoCronometro){
+            outState.putLong("TEMPO", SystemClock.elapsedRealtime()- ch.getBase());
+        }else{
+            outState.putLong("TEMPO", this.milliseconds);
+        }
+        outState.putBoolean("ATIVOCRONOMETRO",this.ativoCronometro);
+        outState.putString("TEXTCRONOMETRO",this.textCronometro);
     }
 
     public void startCronometro(View v){
-        ch.setBase(SystemClock.elapsedRealtime() - milliseonds);
+        ch.setBase(SystemClock.elapsedRealtime() - milliseconds);
         ch.start();
+        this.ativoCronometro = true;
         btnStart.setEnabled(false);
+        btnPause.setEnabled(true);
+        btnGolCasa.setEnabled(true);
+        btnGolVisitante.setEnabled(true);
     }
 
     public void pauseCronometro(View v){
-        milliseonds = SystemClock.elapsedRealtime()- ch.getBase();
+        this.milliseconds = SystemClock.elapsedRealtime()- ch.getBase();
         ch.stop();
+        this.textCronometro = ch.getText().toString();
+        this.ativoCronometro = false;
         btnStart.setEnabled(true);
+        btnPause.setEnabled(false);
+        btnGolCasa.setEnabled(false);
+        btnGolVisitante.setEnabled(false);
     }
 }
